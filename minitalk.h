@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: boiarinov <boiarinov@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:33:59 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/09/21 13:39:47 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/09/22 00:36:36 by boiarinov        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
-
-# define SA struct sigaction
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -33,5 +31,6 @@ int		ft_print_int(long n);
 int		ft_print_uint(unsigned int n);
 int		ft_print_hex(unsigned int x, char xcase);
 int		ft_print_ptr(void *ptr);
+void	ft_putchar_fd(char c, int fd);
 
 #endif
