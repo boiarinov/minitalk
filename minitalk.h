@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: boiarinov <boiarinov@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:33:59 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/08/09 16:50:11 by boiarinov        ###   ########.fr       */
+/*   Updated: 2023/09/21 13:39:47 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
 
-#define SA struct sigaction
+# define SA struct sigaction
 
 # include <stdlib.h>
 # include <unistd.h>

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: boiarinov <boiarinov@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:34:22 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/08/09 17:02:05 by boiarinov        ###   ########.fr       */
+/*   Updated: 2023/09/21 13:40:47 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void binconv_reverse(int sig, siginfo_t *client, void *context)
+void	binconv_reverse(int sig, siginfo_t *client, void *context)
 {
 	int	bit;
 	int	i;
@@ -25,7 +25,7 @@ void binconv_reverse(int sig, siginfo_t *client, void *context)
 	{
 		if (i == 0)
 			kill(client->si_pid, SIGUSR2);
-		ft_printf("%c", i);
+		write(1, &i, 1);
 		bit = 0;
 		i = 0;
 	}
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	{
 		ft_printf("Unexpected error\n");
 		return (EXIT_FAILURE);
-	}	
+	}
 	pid = getpid();
 	ft_printf("Server started with PID: %d\n", pid);
 	sig.sa_sigaction = binconv_reverse;
@@ -53,5 +53,5 @@ int	main(int argc, char **argv)
 		sigaction(SIGUSR2, &sig, NULL);
 		pause();
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
