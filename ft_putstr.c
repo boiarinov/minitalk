@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: boiarinov <boiarinov@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 15:07:47 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/08/09 15:45:33 by boiarinov        ###   ########.fr       */
+/*   Created: 2023/06/01 17:39:20 by aboiarin          #+#    #+#             */
+/*   Updated: 2023/09/22 14:39:52 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-size_t	ft_strlen(const char *str)
+void	ft_putstr(char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
 		i++;
-	return (i);
+	}
 }

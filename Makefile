@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: boiarinov <boiarinov@student.42.fr>        +#+  +:+       +#+         #
+#    By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/07 15:34:08 by boiarinov         #+#    #+#              #
-#    Updated: 2023/09/22 00:41:00 by boiarinov        ###   ########.fr        #
+#    Updated: 2023/09/22 17:32:23 by aboiarin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,15 @@ CFLAGS = -c -Wall -Werror -Wextra
 
 RM = rm -f
 
-SRC = ft_printf.c ft_print_char.c ft_print_hex.c ft_print_int.c \
-ft_print_ptr.c ft_print_str.c ft_print_uint.c ft_calloc.c ft_atoi.c \
-ft_strlen.c
+SRC = ft_putstr.c ft_atoi.c ft_itoa.c
 
 all: start_message server client end_message
 
 server: server.c
-	@$(CC) $(CLFAGS) -o server server.c $(SRC)
+	@$(CC) $(CFLAGS) -o server server.c $(SRC)
 
 client: client.c
-	@$(CC) $(CLFAGS) -o client client.c $(SRC)
+	@$(CC) $(CFLAGS) -o client client.c $(SRC)
 
 clean:
 	@$(RM) server client

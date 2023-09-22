@@ -3,50 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: boiarinov <boiarinov@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:34:22 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/09/22 00:41:10 by boiarinov        ###   ########.fr       */
+/*   Updated: 2023/09/22 17:14:59 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	binconv_reverse(int sig, siginfo_t *client, void *content)
+void	receive_message(int sig, siginfo_t *client, void *msg)
 {
 	static int				bit = -1;
 	static unsigned char	c;
+	static int				client_pid;
 
-	(void)content;
-	if (bit < 0)
-		bit = 7;
-	if (sig == SIGUSR1)
-		c |= (1 << bit);
-	bit--;
-	if (bit < 0 && c)
+	(void)msg;
+	if (!client_pid || client_pid == 0)
+		client_pid = client->si_pid;
+	if (client_pid == client->si_pid)
 	{
-		write(1, &c, 1);
-		c = 0;
-		if (kill(client->si_pid, SIGUSR2) == -1)
+		if (bit < 0)
+			bit = 7;
+		if (sig == SIGUSR1)
+			c |= (1 << bit);
+		bit--;
+		if (bit < 0)
 		{
-			ft_printf("Server failed to send SIGUSR2\n");
-			return ;
+			write(1, &c, 1);
+			if (c == '\0')
+			{
+				client_pid = 0;
+				if (kill(client->si_pid, SIGUSR2) == -1)
+				{
+					ft_putstr("Server failed to send SIGUSR2\n");
+					return ;
+				}
+			}
+			c = 0;
 		}
-		if (kill(client->si_pid, SIGUSR1) == -1)
-			ft_printf("Server failed to send SIGUSR1\n");
 	}
+	else
+		kill(client->si_pid, SIGUSR1);
 }
 
 void	set_signals(void)
 {
 	struct sigaction	sa_signals;
 
-	sa_signals.sa_sigaction = &binconv_reverse;
+	sa_signals.sa_sigaction = &receive_message;
 	sa_signals.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGUSR1, &sa_signals, NULL) == -1)
-		ft_printf("SIGUSR1 error\n");
+		ft_putstr("SIGUSR1 error\n");
 	if (sigaction(SIGUSR2, &sa_signals, NULL) == -1)
-		ft_printf("SIGUSR2 error\n");
+		ft_putstr("SIGUSR2 error\n");
 }
 
 int	main(void)
@@ -54,7 +64,9 @@ int	main(void)
 	int		pid;
 
 	pid = getpid();
-	ft_printf("Server started with PID: %d\n", pid);
+	ft_putstr("Server started with PID: ");
+	ft_putstr(ft_itoa(pid));
+	ft_putstr("\n");
 	while (1)
 		set_signals();
 	return (EXIT_SUCCESS);
