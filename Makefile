@@ -3,44 +3,58 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+         #
+#    By: aboiarin <aboiarinstudent.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/07 15:34:08 by boiarinov         #+#    #+#              #
-#    Updated: 2023/09/22 17:32:23 by aboiarin         ###   ########.fr        #
+#    Updated: 2023/09/25 14:47:06 by aboiarin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -c -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 RM = rm -f
 
-SRC = ft_putstr.c ft_atoi.c ft_itoa.c
+NAME_S = server
+NAME_C = client
 
-all: start_message server client end_message
+SRC_S = server.c server_utils.c
+SRC_C = client.c client_utils.c
 
-server: server.c
-	@$(CC) $(CFLAGS) -o server server.c $(SRC)
+OBJ_S = $(SRC_S:.c=.o)
+OBJ_C = $(SRC_C:.c=.o)
 
-client: client.c
-	@$(CC) $(CFLAGS) -o client client.c $(SRC)
+all: start_message $(NAME_S) $(NAME_C) success_message
+
+.o:		.c
+		$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME_S):	$(OBJ_S)
+	@$(CC) $(CFLAGS) $(OBJ_S) -o $(NAME_S)
+	@echo 'Server ready ✅'
+
+$(NAME_C):	$(OBJ_C)
+	@$(CC) $(CFLAGS) $(OBJ_C) -o $(NAME_C)
+	@echo 'Client ready ✅'
 
 clean:
-	@$(RM) server client
-	@echo 'Executables removed ✨'
+	@$(RM) $(OBJ_S) $(OBJ_C)
+	@echo 'Object files removed ✨'
 
 start_message:
 	@echo 'Compiling... 🌊'
 
-end_message:
+success_message:
 	@echo 'Done ✅'
 
 re_message:
 	@echo 'Starting over... ⏪'
 
 fclean:	clean
+		@$(RM) $(NAME_S) $(NAME_C)
+		@echo 'Executables removed ✨'
 
 re: re_message fclean all
 
-.PHONY: all server client clean fclean re start_message re_message end_message
+.PHONY: all clean fclean re

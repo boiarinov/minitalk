@@ -12,6 +12,18 @@
 
 #include "minitalk.h"
 
+void	ft_putstr(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+}
+
 static size_t	ft_nbrlen(long n)
 {
 	size_t	i;
