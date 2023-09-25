@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:33:37 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/09/25 15:18:53 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:29:03 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	send_message(int server_pid, char *msg)
 	}
 }
 
-void	send_null(int server_pid)
+void	message_sent(int server_pid)
 {
 	int				i;
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv)
 		server_pid = ft_atoi(argv[1]);
 		ft_putstr("Sending message...\n");
 		send_message(server_pid, argv[2]);
-		send_null(server_pid);
+		message_sent(server_pid);
 	}
 	else
 	{
