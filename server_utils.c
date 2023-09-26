@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:12:27 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/09/26 18:32:20 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:50:17 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ void	ft_putstr(char *str)
 
 void	ft_putnbr(int n)
 {
-	char	str[10] = "0123456789";
+	char	c;
 
 	if (n > 9)
 		ft_putnbr(n / 10);
-	write(1, &str[n % 10], 1);
+	c = n % 10 + '0';
+	write(1, &c, 1);
 }
