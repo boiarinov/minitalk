@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:33:37 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/09/25 15:29:03 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:53:10 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	set_signals(void)
 {
 	struct sigaction	sa_signals;
 
+	ft_memset(&sa_signals, 0, sizeof(sa_signals));
 	sa_signals.sa_handler = &check_status;
 	sa_signals.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGUSR1, &sa_signals, NULL) == -1)
@@ -72,20 +73,18 @@ void	set_signals(void)
 int	main(int argc, char **argv)
 {
 	int		server_pid;
-	int		i;
 
-	set_signals();
-	i = 0;
 	if (argc == 3)
 	{
 		server_pid = ft_atoi(argv[1]);
 		ft_putstr("Sending message...\n");
+		set_signals();
 		send_message(server_pid, argv[2]);
 		message_sent(server_pid);
 	}
 	else
 	{
-		ft_putstr("Usage: ./client <server_pid> <message>\n");
+		ft_putstr("Use: ./client <server_pid> <message>\n");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

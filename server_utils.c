@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   server_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:12:27 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/09/22 14:39:24 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:32:20 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((unsigned char *)s)[i] = c;
+		i++;
+	}
+	return (s);
+}
 
 void	ft_putstr(char *str)
 {
@@ -24,52 +37,11 @@ void	ft_putstr(char *str)
 	}
 }
 
-static size_t	ft_nbrlen(long n)
+void	ft_putnbr(int n)
 {
-	size_t	i;
+	char	str[10] = "0123456789";
 
-	i = 1;
-	if (n < 0)
-	{
-		n *= -1;
-		i++;
-	}
-	while (n > 9)
-	{
-		n /= 10;
-		i++;
-	}
-	return (i);
-}
-
-static void	ft_putnbr_local(long n, char *str, int *i)
-{
 	if (n > 9)
-	{
-		ft_putnbr_local(n / 10, str, i);
-		ft_putnbr_local(n % 10, str, i);
-	}
-	else
-		str[(*i)++] = n + '0';
-}
-
-char	*ft_itoa(int n)
-{
-	char	*r;
-	int		i;
-	long	nbr;
-
-	nbr = n;
-	r = (char *)malloc(sizeof(char) * (ft_nbrlen(nbr) + 1));
-	if (r == 0)
-		return (0);
-	i = 0;
-	if (nbr < 0)
-	{
-		r[i++] = '-';
-		nbr *= -1;
-	}
-	ft_putnbr_local(nbr, r, &i);
-	r[i] = '\0';
-	return (r);
+		ft_putnbr(n / 10);
+	write(1, &str[n % 10], 1);
 }

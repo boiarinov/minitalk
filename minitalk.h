@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:33:59 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/09/22 15:35:41 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:30:48 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include <signal.h>
 
 int		ft_atoi(const char *str);
-char	*ft_itoa(int n);
+void	ft_putnbr(int n);
 void	ft_putstr(char *str);
+void	*ft_memset(void *s, int c, size_t n);
 
 #endif

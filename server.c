@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:34:22 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/09/25 15:18:56 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:31:02 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	set_signals(void)
 {
 	struct sigaction	sa_signals;
 
+	ft_memset(&sa_signals, 0, sizeof(sa_signals));
 	sa_signals.sa_sigaction = &receive_message;
 	sa_signals.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGUSR1, &sa_signals, NULL) == -1)
@@ -65,7 +66,7 @@ int	main(void)
 
 	pid = getpid();
 	ft_putstr("Server started with PID: ");
-	ft_putstr(ft_itoa(pid));
+	ft_putnbr(pid);
 	ft_putstr("\n");
 	while (1)
 		set_signals();
