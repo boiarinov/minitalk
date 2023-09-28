@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 15:34:22 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/09/26 18:31:02 by aboiarin         ###   ########.fr       */
+/*   Created: 2023/09/27 14:50:36 by aboiarin          #+#    #+#             */
+/*   Updated: 2023/09/28 14:31:30 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,7 @@ void	receive_message(int sig, siginfo_t *client, void *msg)
 			if (c == '\0')
 			{
 				client_pid = 0;
-				if (kill(client->si_pid, SIGUSR2) == -1)
-				{
-					ft_putstr("Server failed to send SIGUSR2\n");
-					return ;
-				}
+				kill(client->si_pid, SIGUSR2);
 			}
 			c = 0;
 		}

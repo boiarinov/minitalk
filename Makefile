@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aboiarin <aboiarinstudent.42.fr>          +#+  +:+       +#+         #
+#    By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/07 15:34:08 by boiarinov         #+#    #+#              #
-#    Updated: 2023/09/25 14:47:06 by aboiarin         ###   ########.fr        #
+#    Created: 2023/09/27 14:49:57 by aboiarin          #+#    #+#              #
+#    Updated: 2023/09/28 13:29:11 by aboiarin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ OBJ_S = $(SRC_S:.c=.o)
 OBJ_C = $(SRC_C:.c=.o)
 
 all: start_message $(NAME_S) $(NAME_C) success_message
+
+bonus: all
 
 .o:		.c
 		$(CC) $(CFLAGS) -c $< -o $@

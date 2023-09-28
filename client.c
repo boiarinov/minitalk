@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 15:33:37 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/09/26 17:53:10 by aboiarin         ###   ########.fr       */
+/*   Created: 2023/09/27 14:50:17 by aboiarin          #+#    #+#             */
+/*   Updated: 2023/09/28 14:31:43 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,19 @@ void	send_message(int server_pid, char *msg)
 
 void	message_sent(int server_pid)
 {
+	unsigned char	c;
 	int				i;
 
+	c = '\0';
 	i = 8;
 	while (i--)
 	{
-		kill(server_pid, SIGUSR2);
+		if (c & 0b10000000)
+			kill(server_pid, SIGUSR1);
+		else
+			kill(server_pid, SIGUSR2);
 		usleep(50);
+		c <<= 1;
 	}
 }
 
