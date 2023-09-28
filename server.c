@@ -6,11 +6,20 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:50:36 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/09/28 14:31:30 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:47:56 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void	check_end(int *client_pid, siginfo_t *client, char c)
+{
+	if (c == '\0')
+	{
+		*client_pid = 0;
+		kill(client->si_pid, SIGUSR2);
+	}
+}
 
 void	receive_message(int sig, siginfo_t *client, void *msg)
 {
@@ -31,11 +40,7 @@ void	receive_message(int sig, siginfo_t *client, void *msg)
 		if (bit < 0)
 		{
 			write(1, &c, 1);
-			if (c == '\0')
-			{
-				client_pid = 0;
-				kill(client->si_pid, SIGUSR2);
-			}
+			check_end(&client_pid, client, c);
 			c = 0;
 		}
 	}
